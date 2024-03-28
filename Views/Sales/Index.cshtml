@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ClinicaCaniZzoo.Models.Sales>
+
+@{
+    ViewBag.Title = "Storico Acquisti clienti";
+}
+
+<h2 class="text-center fw-bolder fs-2 mb-5">Storico acquisti clienti</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bolder">@Html.DisplayFor(modelItem => item.Products.NomeProdotto)</h5>
+                    <div class="d-flex my-1">
+                        <h6 class="card-subtitle mb-2 text-muted">Cliente:</h6>
+                        <h6 class="card-subtitle mb-2 text-muted ms-1">@Html.DisplayFor(modelItem => item.Users.Nome)</h6>
+                        <h6 class="card-subtitle mb-2 text-muted ms-1">@Html.DisplayFor(modelItem => item.Users.Cognome)</h6>
+                        <h6 class="card-subtitle mb-2 text-muted ms-1">@Html.DisplayFor(modelItem => item.Users.CodiceFiscale)</h6>
+                    </div>
+                    <p class="card-text">
+                        <strong>Data Vendita: </strong>
+                        @if (item.DataVendita.HasValue)
+                        {
+                            @item.DataVendita.Value.ToShortDateString()
+                        }
+                        <br />
+                        @if (string.IsNullOrEmpty(item?.GetType()?.GetProperty("N_Ricetta")?.GetValue(item, null)?.ToString()))
+                        {
+                            <strong>Nessuna ricetta</strong>
+                        }
+                        else
+                        {
+                            <strong>Numero Ricetta: </strong>@Html.DisplayFor(modelItem => item.N_Ricetta)
+                        }
+                    </p>
+                    <div class="mt-auto d-flex justify-content-evenly">
+                        @Html.ActionLink("Dettagli acquisto", "Details", new { id = item.IdVendita }, new { @class = "btn btn-primary mr-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

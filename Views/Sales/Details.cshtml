@@ -1,0 +1,39 @@
+﻿@model ClinicaCaniZzoo.Models.Sales
+
+@{
+    ViewBag.Title = "Dettagli acquisto";
+}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Dettagli acquisto</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-2">Prodotto:</dt>
+            <dd class="col-10">@Html.DisplayFor(model => model.Products.NomeProdotto)</dd>
+
+            <dt class="col-2">Utente:</dt>
+            <dd class="col-10">@Html.DisplayFor(model => model.Users.Nome) @Html.DisplayFor(model => model.Users.Cognome) @Html.DisplayFor(model => model.Users.CodiceFiscale)</dd>
+
+            @if (Model.DataVendita.HasValue)
+            {
+                <dt class="col-2">Data Vendita:</dt>
+                <dd class="col-10">@Model.DataVendita.Value.ToString("dd/MM/yyyy")</dd>
+            }
+            @if (Model != null && !string.IsNullOrEmpty(Convert.ToString(Model.GetType().GetProperty("N_Ricetta")?.GetValue(Model))))
+            {
+                <dt class="col-2">Numero Ricetta:</dt>
+                <dd class="col-10">@Html.DisplayFor(model => model.N_Ricetta)</dd>
+            }
+            else
+            {
+                <div>
+                    <dt class="col-12">Per questo acquisto non c'e' stato bisogno della ricetta</dt>
+                </div>
+            }
+        </dl>
+        <div class="mt-4">
+            <a href="@Url.Action("Index")" class="btn btn-secondary mr-2">Torna allo storico</a>
+        </div>
+    </div>
+</div>

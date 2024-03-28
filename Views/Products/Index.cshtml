@@ -1,0 +1,27 @@
+﻿
+<div class="row align-items-stretch">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <img class="card-img-top" src="@item.ImgProdotto" alt="@item.NomeProdotto image">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@item.NomeProdotto</h5>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Tipo:</span> @item.TipoProdotto<br>
+                        <span class="font-weight-bold">Usi:</span> @item.UsiProdotto<br>
+                        <span class="font-weight-bold">Fornitore:</span> @item.Suppliers.Nome<br>
+                        <span class="font-weight-bold">Posizione:</span> Armadietto: @item.Armadietto, Cassetto: @item.Cassetto
+                    </p>
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IdProdotto }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = item.IdProdotto }, new { @class = "btn btn-secondary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdProdotto }, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
